@@ -1,0 +1,16 @@
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/Api
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/appsettings.Development.json
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/appsettings.json
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/Api.dll
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/Api.deps.json
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/Api.runtimeconfig.json
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/Api.pdb
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/AWSSDK.Core.dll
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/AWSSDK.S3.dll
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/Dapper.dll
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/System.Data.SqlClient.dll
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/runtimes/win-arm64/native/sni.dll
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/runtimes/win-x64/native/sni.dll
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/runtimes/win-x86/native/sni.dll
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll
+/Users/melissafuquen/Documents/Git/Api/bin/Release/net6.0/publish/runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll

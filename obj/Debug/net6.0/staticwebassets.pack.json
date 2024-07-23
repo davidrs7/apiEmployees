@@ -1,0 +1,117 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\3rdpartylicenses.txt",
+      "PackagePath": "staticwebassets\\3rdpartylicenses.txt"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\asecofin_logo.png",
+      "PackagePath": "staticwebassets\\assets\\asecofin_logo.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\avatar.png",
+      "PackagePath": "staticwebassets\\assets\\avatar.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\back.png",
+      "PackagePath": "staticwebassets\\assets\\back.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\backdes.png",
+      "PackagePath": "staticwebassets\\assets\\backdes.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\dose.png",
+      "PackagePath": "staticwebassets\\assets\\dose.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\file.png",
+      "PackagePath": "staticwebassets\\assets\\file.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\folder.png",
+      "PackagePath": "staticwebassets\\assets\\folder.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\folderw.png",
+      "PackagePath": "staticwebassets\\assets\\folderw.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\js\\personScript.js",
+      "PackagePath": "staticwebassets\\assets\\js\\personScript.js"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\load.gif",
+      "PackagePath": "staticwebassets\\assets\\load.gif"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\tiindux_logo.png",
+      "PackagePath": "staticwebassets\\assets\\tiindux_logo.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\vccmaker.png",
+      "PackagePath": "staticwebassets\\assets\\vccmaker.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\back.785e881526af31bd1cd2.png",
+      "PackagePath": "staticwebassets\\back.785e881526af31bd1cd2.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\backdes.3485093837689d149f47.png",
+      "PackagePath": "staticwebassets\\backdes.3485093837689d149f47.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\file.b907e2b26987596df9d7.png",
+      "PackagePath": "staticwebassets\\file.b907e2b26987596df9d7.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\folder.505596d3157668db6206.png",
+      "PackagePath": "staticwebassets\\folder.505596d3157668db6206.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\folderw.f6f41dc0f4bfa4c44a84.png",
+      "PackagePath": "staticwebassets\\folderw.f6f41dc0f4bfa4c44a84.png"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\main.4467793a3d4b8686123e.js",
+      "PackagePath": "staticwebassets\\main.4467793a3d4b8686123e.js"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\polyfills.8eb8bd67c523a100b1c0.js",
+      "PackagePath": "staticwebassets\\polyfills.8eb8bd67c523a100b1c0.js"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\runtime.43a6ca5aa6faca557cbe.js",
+      "PackagePath": "staticwebassets\\runtime.43a6ca5aa6faca557cbe.js"
+    },
+    {
+      "Id": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\styles.01d8413870dd4c8bd3fc.css",
+      "PackagePath": "staticwebassets\\styles.01d8413870dd4c8bd3fc.css"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.Api.props",
+      "PackagePath": "build\\Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.Api.props",
+      "PackagePath": "buildMultiTargeting\\Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.Api.props",
+      "PackagePath": "buildTransitive\\Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

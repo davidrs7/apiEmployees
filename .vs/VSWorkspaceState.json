@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Controllers",
+    "\\DTO",
+    "\\DTO\\Recruiter",
+    "\\Interfaces",
+    "\\Queries",
+    "\\Repositories"
+  ],
+  "PreviewInSolutionExplorer": false
+}
