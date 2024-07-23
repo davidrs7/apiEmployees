@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gLy9bzPp2GIndueu2odYqJBo6BnguV1mQclH+2tPs4I=",
+  "Hash": "MlDMUwkmwIvksMH+k9uFHgKEJDnfDgxTGbREU5PufVQ=",
   "Source": "Api",
   "BasePath": "_content/Api",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Api\\wwwroot",
       "Source": "Api",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\3rdpartylicenses.txt",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\3rdpartylicenses.txt",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "3rdpartylicenses.txt",
       "AssetKind": "All",
@@ -34,10 +34,10 @@
       "OriginalItemSpec": "wwwroot\\3rdpartylicenses.txt"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\asecofin_logo.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\asecofin_logo.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/asecofin_logo.png",
       "AssetKind": "All",
@@ -51,10 +51,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\asecofin_logo.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\avatar.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\avatar.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/avatar.png",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\avatar.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\back.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\back.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/back.png",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\back.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\backdes.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\backdes.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/backdes.png",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\backdes.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\dose.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\dose.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/dose.png",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\dose.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\file.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\file.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/file.png",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\file.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\folder.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\folder.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/folder.png",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\folder.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\folderw.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\folderw.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/folderw.png",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\folderw.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\js\\personScript.js",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\js\\personScript.js",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/js/personScript.js",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\js\\personScript.js"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\load.gif",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\load.gif",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/load.gif",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\load.gif"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\tiindux_logo.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\tiindux_logo.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/tiindux_logo.png",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\tiindux_logo.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\assets\\vccmaker.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\assets\\vccmaker.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "assets/vccmaker.png",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\vccmaker.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\back.785e881526af31bd1cd2.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\back.785e881526af31bd1cd2.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "back.785e881526af31bd1cd2.png",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\back.785e881526af31bd1cd2.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\backdes.3485093837689d149f47.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\backdes.3485093837689d149f47.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "backdes.3485093837689d149f47.png",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\backdes.3485093837689d149f47.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\favicon.ico",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\favicon.ico",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -289,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\file.b907e2b26987596df9d7.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\file.b907e2b26987596df9d7.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "file.b907e2b26987596df9d7.png",
       "AssetKind": "All",
@@ -306,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\file.b907e2b26987596df9d7.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\folder.505596d3157668db6206.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\folder.505596d3157668db6206.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "folder.505596d3157668db6206.png",
       "AssetKind": "All",
@@ -323,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\folder.505596d3157668db6206.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\folderw.f6f41dc0f4bfa4c44a84.png",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\folderw.f6f41dc0f4bfa4c44a84.png",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "folderw.f6f41dc0f4bfa4c44a84.png",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\folderw.f6f41dc0f4bfa4c44a84.png"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\index.html",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\index.html",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "index.html",
       "AssetKind": "All",
@@ -357,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\main.4467793a3d4b8686123e.js",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\main.4467793a3d4b8686123e.js",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "main.4467793a3d4b8686123e.js",
       "AssetKind": "All",
@@ -374,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\main.4467793a3d4b8686123e.js"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\polyfills.8eb8bd67c523a100b1c0.js",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\polyfills.8eb8bd67c523a100b1c0.js",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "polyfills.8eb8bd67c523a100b1c0.js",
       "AssetKind": "All",
@@ -391,10 +391,10 @@
       "OriginalItemSpec": "wwwroot\\polyfills.8eb8bd67c523a100b1c0.js"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\runtime.43a6ca5aa6faca557cbe.js",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\runtime.43a6ca5aa6faca557cbe.js",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "runtime.43a6ca5aa6faca557cbe.js",
       "AssetKind": "All",
@@ -408,10 +408,10 @@
       "OriginalItemSpec": "wwwroot\\runtime.43a6ca5aa6faca557cbe.js"
     },
     {
-      "Identity": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\styles.01d8413870dd4c8bd3fc.css",
+      "Identity": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\styles.01d8413870dd4c8bd3fc.css",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\wwwroot\\",
+      "ContentRoot": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "styles.01d8413870dd4c8bd3fc.css",
       "AssetKind": "All",

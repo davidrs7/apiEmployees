@@ -2198,11 +2198,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\Api.csproj",
+      "projectUniqueName": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\Api.csproj",
       "projectName": "Api",
-      "projectPath": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\Api.csproj",
+      "projectPath": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\Api.csproj",
       "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
-      "outputPath": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\obj\\",
+      "outputPath": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",

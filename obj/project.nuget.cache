@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sRB59ZaTtWpIPg8aHOA0SBcBL6bpfWh3hKFphvLPYoGkEQSad5V5a8R+YbWFzbyNvxnmSvpv6ho/RJ1YjZO1rw==",
+  "dgSpecHash": "PC0UPicjcxcwSnFb+8hQ4lQobbwHEK32T/DtEQNNT2EJWRoNLjnhCiUq3KgD+ILhPChOiBiM633DGTtvDSStiA==",
   "success": true,
-  "projectFilePath": "E:\\david\\Freelance\\Tindux\\Asecofin\\Api\\Api.csproj",
+  "projectFilePath": "E:\\david\\Freelance\\Tindux\\Integracion\\apiEmployees\\Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\david\\.nuget\\packages\\awssdk.core\\3.7.9\\awssdk.core.3.7.9.nupkg.sha512",
     "C:\\Users\\david\\.nuget\\packages\\awssdk.s3\\3.7.8.10\\awssdk.s3.3.7.8.10.nupkg.sha512",
