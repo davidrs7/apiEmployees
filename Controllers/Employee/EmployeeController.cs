@@ -14,6 +14,12 @@ namespace Api.Controllers
             _employeeRepository = employeeRepository;
         }
 
+        [HttpPost("Employees/All")]
+        public async Task<ActionResult<IEnumerable<EmployeeBasicDTO>>> EmployeesAll([FromForm] EmployeeCriteriaDTO employeeCriteria)
+        {
+            return Ok(await _employeeRepository.EmployeesAll(employeeCriteria));
+        }
+
         [HttpPost("Employees/Criteria")]
         public async Task<ActionResult<IEnumerable<EmployeeBasicDTO>>> Employees([FromForm] EmployeeCriteriaDTO employeeCriteria)
         {

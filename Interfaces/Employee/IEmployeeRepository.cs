@@ -9,6 +9,7 @@ namespace Api.Interfaces
     public interface IEmployeeRepository
     {
         Task<IEnumerable<EmployeeBasicDTO>> Employees(EmployeeCriteriaDTO employeeCriteria);
+        Task<IEnumerable<EmployeeBasicDTO>> EmployeesAll(EmployeeCriteriaDTO employeeCriteria);
         Task<IEnumerable<EmployeeBasicDTO>> EmployeesWithoutPages(int excludeEmployeeId);
         Task<IEnumerable<EmployeeDownloadDTO>> EmployeesDownload(EmployeeCriteriaDTO employeeCriteria);
         Task<IEnumerable<EmployeeSkillDTO>> Skills();

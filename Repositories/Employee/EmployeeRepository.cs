@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace Api.Repositories
 {
-    public class EmployeeRepository: FileUploadRepositoryBase, IEmployeeRepository
+    public class EmployeeRepository : FileUploadRepositoryBase, IEmployeeRepository
     {
         private IConfiguration _configuration;
         private EmployeeQueries _employeeQueries;
@@ -20,9 +20,64 @@ namespace Api.Repositories
             _employeeQueries = new EmployeeQueries();
         }
 
+        public async Task<IEnumerable<EmployeeBasicDTO>> EmployeesAll(EmployeeCriteriaDTO employeeCriteria)
+        {
+            try
+            {
+
+                string employeesAllSql = @" 
+     SELECT 
+         Id, 
+         DepartmentId, 
+         DepartmentName, 
+         JobName, 
+         ColorHex, 
+         Name, 
+         CellPhone, 
+         Email, 
+         PhotoUrl, 
+         paginado AS paginado
+     FROM (
+         SELECT 
+             E.Id, 
+             D.RolID AS DepartmentId, 
+             D.Nombre AS DepartmentName, 
+             J.Nombre AS JobName,
+             C.Hex AS ColorHex, 
+             E.Name, 
+             E.Doc, 
+             E.CellPhone, 
+             E.Email, 
+             IF(E.PhotoUrl IS NULL, NULL, CONCAT('https://hrprueba.s3.us-east-2.amazonaws.com/', E.PhotoUrl)) AS PhotoUrl, 
+             E.Id AS paginado
+         FROM  
+             Usuarios U
+         INNER JOIN  Employee E ON  E.Id = U.UsuarioIdOpcional 
+         LEFT JOIN Cargos J ON E.JobId = J.CargoID
+         LEFT JOIN Roles D ON U.RolID = D.RolID 
+         LEFT JOIN Color C ON D.ColorId = C.Id
+     ) AS Employees ";          
+                using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+                {
+                         await connection.OpenAsync();   
+                        var employeesResponse = await connection.QueryAsync<EmployeeBasicDTO>(employeesAllSql);
+                        return employeesResponse.ToList();                    
+                }
+
+            }
+            catch (Exception Error)
+            {
+                List<EmployeeBasicDTO> employees = new List<EmployeeBasicDTO>();
+                return employees.ToList();
+            }
+
+        }
+
         public async Task<IEnumerable<EmployeeBasicDTO>> Employees(EmployeeCriteriaDTO employeeCriteria)
         {
-            try {
+            try
+            {
+
                 string employeesSql = @" 
                     SELECT 
                         Id, 
@@ -39,9 +94,9 @@ namespace Api.Repositories
                     FROM (
                         SELECT 
                             E.Id, 
-                            D.Id AS DepartmentId, 
-                            D.Name AS DepartmentName, 
-                            J.Name AS JobName, 
+                            D.RolID AS DepartmentId, 
+                            D.Nombre AS DepartmentName, 
+                            J.Nombre AS JobName,
                             C.Hex AS ColorHex, 
                             E.Name, 
                             E.Doc, 
@@ -51,9 +106,10 @@ namespace Api.Repositories
                             E.Id AS paginado, 
                             @Pages AS Quantity 
                         FROM  
-                            Employee E 
-                        LEFT JOIN Job J ON E.JobId = J.Id 
-                        LEFT JOIN Department D ON J.DepartmentId = D.Id 
+                            Usuarios U
+                        INNER JOIN  Employee E ON  E.Id = U.UsuarioIdOpcional 
+                        LEFT JOIN Cargos J ON E.JobId = J.CargoID
+                        LEFT JOIN Roles D ON U.RolID = D.RolID 
                         LEFT JOIN Color C ON D.ColorId = C.Id
                     ) AS Employees 
                     WHERE paginado BETWEEN ((@PageSize * @Page) - (@PageSize - 1)) AND (@PageSize * @Page);
@@ -97,7 +153,7 @@ namespace Api.Repositories
             string employeesSql = _employeeQueries.EmployeesDownloadBase;
             employeesSql = this.QueryWhereCriteria(employeeCriteria, employeesSql);
 
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
                 await connection.OpenAsync();
                 var employeesResponse = await connection.QueryAsync<EmployeeDownloadDTO>(employeesSql, employeeCriteria);
@@ -108,10 +164,11 @@ namespace Api.Repositories
         public async Task<IEnumerable<EmployeeBasicDTO>> EmployeesWithoutPages(int excludeEmployeeId)
         {
             string employeesSql = _employeeQueries.EmployeesWithoutPages;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
                 await connection.OpenAsync();
-                var employeesResponse = await connection.QueryAsync<EmployeeBasicDTO>(employeesSql, new {
+                var employeesResponse = await connection.QueryAsync<EmployeeBasicDTO>(employeesSql, new
+                {
                     EmployeeId = excludeEmployeeId
                 });
                 return employeesResponse.ToList();
@@ -124,7 +181,7 @@ namespace Api.Repositories
             {
                 string addSql = _employeeQueries.Add;
                 using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
-                { 
+                {
                     using (MySqlCommand command = this.createCommandEmployee(addSql, connection, employeeAdd))
                     {
                         await connection.OpenAsync();
@@ -139,25 +196,26 @@ namespace Api.Repositories
                         return employeeId;
                     }
                 }
-            }   
+            }
             catch (Exception ex)
-            {                  
+            {
                 throw new Exception();
             }
 
- 
+
         }
 
         public async Task<int> AddGeneral(EmployeeGeneralDTO employeeGeneralAdd)
         {
             string addSql = _employeeQueries.AddGeneral;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                using(MySqlCommand command = this.createCommandEmployeeGeneral(addSql, connection, employeeGeneralAdd))
+                using (MySqlCommand command = this.createCommandEmployeeGeneral(addSql, connection, employeeGeneralAdd))
                 {
                     await connection.OpenAsync();
                     int employeeGeneralId = Convert.ToInt32(await command.ExecuteScalarAsync());
-                    var employeesResponse = await connection.ExecuteAsync("UPDATE Employee SET GeneralId = @GeneralId WHERE Id = @Id", new {
+                    var employeesResponse = await connection.ExecuteAsync("UPDATE Employee SET GeneralId = @GeneralId WHERE Id = @Id", new
+                    {
                         GeneralId = employeeGeneralId,
                         Id = employeeGeneralAdd.EmployeeId
                     });
@@ -169,13 +227,14 @@ namespace Api.Repositories
         public async Task<int> AddAcademic(EmployeeAcademicDTO employeeAcademicAdd)
         {
             string addSql = _employeeQueries.AddAcademic;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                using(MySqlCommand command = this.createCommandEmployeeAcademic(addSql, connection, employeeAcademicAdd))
+                using (MySqlCommand command = this.createCommandEmployeeAcademic(addSql, connection, employeeAcademicAdd))
                 {
                     await connection.OpenAsync();
                     int employeeAcademicId = Convert.ToInt32(await command.ExecuteScalarAsync());
-                    var employeesResponse = await connection.ExecuteAsync("UPDATE Employee SET AcademicId = @AcademicId WHERE Id = @Id", new {
+                    var employeesResponse = await connection.ExecuteAsync("UPDATE Employee SET AcademicId = @AcademicId WHERE Id = @Id", new
+                    {
                         AcademicId = employeeAcademicId,
                         Id = employeeAcademicAdd.EmployeeId
                     });
@@ -186,7 +245,7 @@ namespace Api.Repositories
 
         public async Task<int> AddFile(EmployeeFileMergeDTO employeeFileAdd)
         {
-            if(employeeFileAdd.Document != null)
+            if (employeeFileAdd.Document != null)
             {
                 var urlFile = this.CreateUrlFile(employeeFileAdd);
                 employeeFileAdd.Url = urlFile;
@@ -194,9 +253,9 @@ namespace Api.Repositories
 
                 await this.PhotoUpload(employeeFileAdd.Document, urlFile, employeeFileAdd.Document.FileName);
                 string addSql = _employeeQueries.AddFile;
-                using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+                using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
                 {
-                    using(MySqlCommand command = this.createCommandEmployeeFile(addSql, connection, employeeFileAdd))
+                    using (MySqlCommand command = this.createCommandEmployeeFile(addSql, connection, employeeFileAdd))
                     {
                         await connection.OpenAsync();
                         return Convert.ToInt32(await command.ExecuteScalarAsync());
@@ -210,18 +269,21 @@ namespace Api.Repositories
         public async Task Edit(EmployeeMergeDTO employeeEdit)
         {
             string editSql = _employeeQueries.Edit;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                using(MySqlCommand command = this.createCommandEmployee(editSql, connection, employeeEdit))
+                using (MySqlCommand command = this.createCommandEmployee(editSql, connection, employeeEdit))
                 {
                     command.Parameters.Add(SqlUtils.obtainMySqlParameter("Id", employeeEdit.Id));
                     await connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
-                    if(employeeEdit.Photo != null) {
+                    if (employeeEdit.Photo != null)
+                    {
                         string fileName = (employeeEdit.Doc != null) ? employeeEdit.Doc.ToString() : employeeEdit.Id.ToString();
                         await this.PhotoUpload(employeeEdit.Photo, fileName);
-                        var employeesResponse = await connection.ExecuteAsync("UPDATE Employee SET PhotoUrl = @PhotoUrl WHERE Id = @Id", new {
-                            PhotoUrl = fileName + ".png", Id = employeeEdit.Id
+                        var employeesResponse = await connection.ExecuteAsync("UPDATE Employee SET PhotoUrl = @PhotoUrl WHERE Id = @Id", new
+                        {
+                            PhotoUrl = fileName + ".png",
+                            Id = employeeEdit.Id
                         });
                     }
                 }
@@ -231,9 +293,9 @@ namespace Api.Repositories
         public async Task EditGeneral(EmployeeGeneralDTO employeeGeneralEdit)
         {
             string editSql = _employeeQueries.EditGeneral;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                using(MySqlCommand command = this.createCommandEmployeeGeneral(editSql, connection, employeeGeneralEdit))
+                using (MySqlCommand command = this.createCommandEmployeeGeneral(editSql, connection, employeeGeneralEdit))
                 {
                     command.Parameters.Add(SqlUtils.obtainMySqlParameter("Id", employeeGeneralEdit.Id));
                     await connection.OpenAsync();
@@ -245,9 +307,9 @@ namespace Api.Repositories
         public async Task EditAcademic(EmployeeAcademicDTO employeeAcademicEdit)
         {
             string editSql = _employeeQueries.EditAcademic;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                using(MySqlCommand command = this.createCommandEmployeeAcademic(editSql, connection, employeeAcademicEdit))
+                using (MySqlCommand command = this.createCommandEmployeeAcademic(editSql, connection, employeeAcademicEdit))
                 {
                     command.Parameters.Add(SqlUtils.obtainMySqlParameter("Id", employeeAcademicEdit.Id));
                     await connection.OpenAsync();
@@ -259,17 +321,22 @@ namespace Api.Repositories
         public async Task MergeKnowledge(EmployeeKnowledgeDTO merge)
         {
             string sql = String.Empty;
-            if(merge.Inserted) {
+            if (merge.Inserted)
+            {
                 sql = _employeeQueries.AddKnowledge;
-            } else if(merge.Updated) {
+            }
+            else if (merge.Updated)
+            {
                 sql = _employeeQueries.EditKnowledge;
-            } else {
+            }
+            else
+            {
                 return;
             }
 
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                using(MySqlCommand command = new MySqlCommand(sql, connection))
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.Add(SqlUtils.obtainMySqlParameter("KnowledgeId", merge.KnowledgeId));
                     command.Parameters.Add(SqlUtils.obtainMySqlParameter("EmployeeId", merge.EmployeeId));
@@ -285,17 +352,22 @@ namespace Api.Repositories
         public async Task MergeSkill(EmployeeSkillDTO merge)
         {
             string sql = String.Empty;
-            if(merge.Inserted) {
+            if (merge.Inserted)
+            {
                 sql = _employeeQueries.AddSkill;
-            } else if(merge.Updated) {
+            }
+            else if (merge.Updated)
+            {
                 sql = _employeeQueries.EditSkill;
-            } else {
+            }
+            else
+            {
                 return;
             }
 
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                using(MySqlCommand command = new MySqlCommand(sql, connection))
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
                 {
                     command.Parameters.Add(SqlUtils.obtainMySqlParameter("SkillId", merge.SkillId));
                     command.Parameters.Add(SqlUtils.obtainMySqlParameter("EmployeeId", merge.EmployeeId));
@@ -310,22 +382,33 @@ namespace Api.Repositories
 
         public async Task<EmployeeDTO> Employee(int employeeId)
         {
-            string employeeSql = _employeeQueries.Employee;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            try
             {
-                var employeeResponse = await connection.QueryAsync<EmployeeDTO>(employeeSql, new {
-                    EmployeeId = employeeId
-                });
-                return employeeResponse.First();
+                string employeeSql = _employeeQueries.Employee;
+                using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+                {
+                    var employeeResponse = await connection.QueryAsync<EmployeeDTO>(employeeSql, new
+                    {
+                        EmployeeId = employeeId
+                    });
+                    return employeeResponse.First();
+                }
             }
+            catch (Exception Ex)
+            {
+                throw new Exception();
+
+            }
+
         }
 
         public async Task<EmployeeGeneralDTO> EmployeeGeneral(int employeeId)
         {
             string employeeSql = _employeeQueries.EmployeeGeneral;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                var employeeResponse = await connection.QueryAsync<EmployeeGeneralDTO>(employeeSql, new {
+                var employeeResponse = await connection.QueryAsync<EmployeeGeneralDTO>(employeeSql, new
+                {
                     EmployeeId = employeeId
                 });
                 return employeeResponse.First();
@@ -335,9 +418,10 @@ namespace Api.Repositories
         public async Task<EmployeeAcademicDTO> EmployeeAcademic(int employeeId)
         {
             string employeeSql = _employeeQueries.EmployeeAcademic;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                var employeeResponse = await connection.QueryAsync<EmployeeAcademicDTO>(employeeSql, new {
+                var employeeResponse = await connection.QueryAsync<EmployeeAcademicDTO>(employeeSql, new
+                {
                     EmployeeId = employeeId
                 });
                 return employeeResponse.First();
@@ -347,7 +431,7 @@ namespace Api.Repositories
         public async Task<IEnumerable<EmployeeSkillDTO>> Skills()
         {
             string employeesSql = _employeeQueries.EmployeeSkillsNew;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
                 await connection.OpenAsync();
                 var employeesResponse = await connection.QueryAsync<EmployeeSkillDTO>(employeesSql);
@@ -358,7 +442,7 @@ namespace Api.Repositories
         public async Task<IEnumerable<EmployeeKnowledgeDTO>> Knowledges()
         {
             string employeesSql = _employeeQueries.EmployeeKnowledgeNew;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
                 await connection.OpenAsync();
                 var employeesResponse = await connection.QueryAsync<EmployeeKnowledgeDTO>(employeesSql);
@@ -369,10 +453,11 @@ namespace Api.Repositories
         public async Task<IEnumerable<EmployeeFileDTO>> Files(int employeeId)
         {
             string employeesSql = _employeeQueries.EmployeeFile;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
                 await connection.OpenAsync();
-                var employeesResponse = await connection.QueryAsync<EmployeeFileDTO>(employeesSql, new {
+                var employeesResponse = await connection.QueryAsync<EmployeeFileDTO>(employeesSql, new
+                {
                     EmployeeId = employeeId
                 });
                 return employeesResponse.ToList();
@@ -382,7 +467,7 @@ namespace Api.Repositories
         public async Task<IEnumerable<EmployeeSkillDTO>> Skills(int employeeId)
         {
             string employeesSql = _employeeQueries.EmployeeSkills;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
                 try
                 {
@@ -393,18 +478,18 @@ namespace Api.Repositories
                     });
                     return employeesResponse.ToList();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     throw new Exception();
                 }
-          
+
             }
         }
 
         public async Task<IEnumerable<EmployeeSonsDTO>> Sons(int employeeId)
         {
             string employeesSql = _employeeQueries.EmployeeSons;
-            using (var connection=new MySqlConnection(_configuration.GetConnectionString("DB")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("DB")))
             {
                 await connection.OpenAsync();
                 var employeeResponse = await connection.QueryAsync<EmployeeSonsDTO>(employeesSql, new
@@ -419,10 +504,11 @@ namespace Api.Repositories
         public async Task<IEnumerable<EmployeeKnowledgeDTO>> Knowledges(int employeeId)
         {
             string employeesSql = _employeeQueries.EmployeeKnowledge;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
                 await connection.OpenAsync();
-                var employeesResponse = await connection.QueryAsync<EmployeeKnowledgeDTO>(employeesSql, new {
+                var employeesResponse = await connection.QueryAsync<EmployeeKnowledgeDTO>(employeesSql, new
+                {
                     EmployeeId = employeeId
                 });
                 return employeesResponse.ToList();
@@ -432,7 +518,7 @@ namespace Api.Repositories
         public async Task<IEnumerable<EmployeeFileTypeDTO>> EmployeeFileTypes()
         {
             string employeesSql = _employeeQueries.EmployeeFileTypes;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
                 await connection.OpenAsync();
                 var employeesResponse = await connection.QueryAsync<EmployeeFileTypeDTO>(employeesSql);
@@ -474,7 +560,7 @@ namespace Api.Repositories
         private MySqlCommand createCommandEmployeeGeneral(string sql, MySqlConnection connection, EmployeeGeneralDTO employeeGeneral)
         {
             MySqlCommand command = new MySqlCommand(sql, connection);
-            command.Parameters.Add(SqlUtils.obtainMySqlParameter("CityId",employeeGeneral.CityId));
+            command.Parameters.Add(SqlUtils.obtainMySqlParameter("CityId", employeeGeneral.CityId));
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("HousingTypeId", employeeGeneral.HousingTypeId));
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("TransportationId", employeeGeneral.TransportationId));
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("EmergencyContactName", employeeGeneral.EmergencyContactName));
@@ -528,37 +614,43 @@ namespace Api.Repositories
         {
             string aliasEmpleyee = whitAliasEmpleyee ? "E." : "";
 
-            if(employeeCriteria.DepartmentId != null && employeeCriteria.DepartmentId > 0)
+            if (employeeCriteria.DepartmentId != null && employeeCriteria.DepartmentId > 0)
             {
-                if(!wherePrint)
+                if (!wherePrint)
                 {
                     queryBase += whereDepartmentComplement + " WHERE";
                     wherePrint = true;
-                } else {
+                }
+                else
+                {
                     queryBase += " AND";
                 }
                 queryBase += " " + departmentFieldName + " = @DepartmentId";
             }
 
-            if(employeeCriteria.Name != null && employeeCriteria.Name != "" && employeeCriteria.Name != "null")
+            if (employeeCriteria.Name != null && employeeCriteria.Name != "" && employeeCriteria.Name != "null")
             {
-                if(!wherePrint)
+                if (!wherePrint)
                 {
                     queryBase += " WHERE";
                     wherePrint = true;
-                } else {
+                }
+                else
+                {
                     queryBase += " AND";
                 }
                 queryBase += " " + aliasEmpleyee + "Name LIKE @Name";
             }
 
-            if(employeeCriteria.Doc != null && employeeCriteria.Doc != "" && employeeCriteria.Doc != "null")
+            if (employeeCriteria.Doc != null && employeeCriteria.Doc != "" && employeeCriteria.Doc != "null")
             {
-                if(!wherePrint)
+                if (!wherePrint)
                 {
                     queryBase += " WHERE";
                     wherePrint = true;
-                } else {
+                }
+                else
+                {
                     queryBase += " AND";
                 }
                 queryBase += " " + aliasEmpleyee + "Doc LIKE @Doc";
@@ -570,9 +662,9 @@ namespace Api.Repositories
         private EmployeeCriteriaDTO PrepareCriteriaToQuery(EmployeeCriteriaDTO employeeCriteria)
         {
             employeeCriteria.PageSize = pageSize;
-            if(employeeCriteria.Name != null && employeeCriteria.Name != "" && employeeCriteria.Name != "null")
+            if (employeeCriteria.Name != null && employeeCriteria.Name != "" && employeeCriteria.Name != "null")
                 employeeCriteria.Name = "%" + employeeCriteria.Name + "%";
-            if(employeeCriteria.Doc != null && employeeCriteria.Doc != "" && employeeCriteria.Doc != "null")
+            if (employeeCriteria.Doc != null && employeeCriteria.Doc != "" && employeeCriteria.Doc != "null")
                 employeeCriteria.Doc = "%" + employeeCriteria.Doc + "%";
             return employeeCriteria;
         }
@@ -592,7 +684,7 @@ namespace Api.Repositories
                         command.Parameters.Add(SqlUtils.obtainMySqlParameter("employeeGeneralId", sonData.EmployeeGeneralId));
                         connection.Open();
                         int result = command.ExecuteNonQuery();
-                        Console.WriteLine("updated: "+result);
+                        Console.WriteLine("updated: " + result);
                         return Task.FromResult(result);
                     }
                     catch (Exception ex)
@@ -616,26 +708,26 @@ namespace Api.Repositories
                 {
                     try
                     {
-                        
+
                         Console.WriteLine(query);
                         /*command.Parameters.Add(this.obtainMySqlParameter("id", sonData.Id));*/
                         command.Parameters.Add(SqlUtils.obtainMySqlParameter("employeeGeneralId", sonData.EmployeeGeneralId));
                         command.Parameters.Add(SqlUtils.obtainMySqlParameter("sonBornDate", sonData.SonBornDate));
                         command.Parameters.Add(SqlUtils.obtainMySqlParameter("sonName", sonData.SonName));
                         connection.Open();
-                        int result=command.ExecuteNonQuery();
+                        int result = command.ExecuteNonQuery();
                         Console.WriteLine("added: " + sonData);
                         return Task.FromResult(result);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Console.WriteLine(ex.ToString());
                         return Task.FromResult(0);
                     }
-                    
+
                 }
             }
-            
+
         }
 
         public Task<int> DelSons(int sonId)
@@ -654,7 +746,8 @@ namespace Api.Repositories
                         int result = command.ExecuteNonQuery();
                         return Task.FromResult(result);
                     }
-                    catch(Exception ex) { 
+                    catch (Exception ex)
+                    {
                         Console.WriteLine(ex.ToString());
                     }
                 }
