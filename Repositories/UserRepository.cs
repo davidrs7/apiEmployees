@@ -111,6 +111,31 @@ namespace Api.Repositories
             }
         }
 
+
+        public async Task<UserDTO> UserByIdOpcional(int userIdOpcional)
+        {
+            string sessionSql = _userQueries.userByIdOpcional;
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            {
+                try
+                {
+                    await connection.OpenAsync();    
+                            string userSql = _userQueries.userByIdOpcional;
+                            var userResponse = await connection.QueryAsync<UserDTO>(userSql, new
+                            {
+                                Id = userIdOpcional
+                            });
+                            return userResponse.First();  
+                    return null;
+                }
+                catch (Exception Ex)
+                {
+                    throw new Exception();
+                }
+
+            }
+        }
+
         public async Task<IEnumerable<UserDTO>> Users()
         {
             string usersSql = _userQueries.Users;

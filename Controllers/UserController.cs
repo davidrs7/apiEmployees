@@ -38,6 +38,12 @@ namespace Api.Controllers
             return Ok(await _userRepository.UserByToken(token));
         }
 
+        [HttpGet("UserEmployee/{userIdOpcional}")]
+        public async Task<ActionResult<UserDTO>> UserByIdOpcional(int userIdOpcional)
+        {
+            return Ok(await _userRepository.UserByIdOpcional(userIdOpcional));
+        }
+
         [HttpGet("Users")]
         public async Task<ActionResult<IEnumerable<UserDTO>>> Users()
         {
