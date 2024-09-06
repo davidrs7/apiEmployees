@@ -27,13 +27,19 @@ namespace Api.Repositories
 
         public async Task<IEnumerable<VacantDTO>> Vacants()
         {
-            string vacantsSql = _vacantQueries.Vacants;
-            var _connect_db = new MySqlConnection(_configuration.GetConnectionString("Db")); 
-            using (var connection = _connect_db)
-            { 
-                await connection.OpenAsync();
-                var vacantsResponse = await connection.QueryAsync<VacantDTO>(vacantsSql);
-                return vacantsResponse.ToList();
+            try
+            {
+                string vacantsSql = _vacantQueries.Vacants;
+                var _connect_db = new MySqlConnection(_configuration.GetConnectionString("Db"));
+                using (var connection = _connect_db)
+                {
+                    await connection.OpenAsync();
+                    var vacantsResponse = await connection.QueryAsync<VacantDTO>(vacantsSql);
+                    return vacantsResponse.ToList();
+                }
+            }
+            catch (Exception ex) {
+                throw ex;
             }
         }
 
