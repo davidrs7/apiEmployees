@@ -24,7 +24,7 @@ namespace Api.Repositories
         public async Task<IEnumerable<PostulateBasicDTO>> Postulates()
         {
             string postulatesSql = _postulateQueries.Postulates;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
                 await connection.OpenAsync();
                 var postulateResponse = await connection.QueryAsync<PostulateBasicDTO>(postulatesSql);
@@ -35,7 +35,7 @@ namespace Api.Repositories
         public async Task<IEnumerable<PostulateBasicDTO>> Postulates(PostulateCriteriaDTO criteria)
         {
             string postulatesSql1 = "WITH Postulates AS (     SELECT          P.Id,          P.EmployeeId,          EL.Name AS EducationalLevelName,          P.ExpectedSalary,          P.FirstName,          P.LastName,          P.CellPhone,          P.Email,          '#076AE2' AS ColorHex,          P.Career,          P.Description,          IF(P.PhotoUrl IS NULL, NULL, CONCAT('https://hrprueba.s3.us-east-2.amazonaws.com/', P.PhotoUrl)) AS PhotoUrl,          ROW_NUMBER() OVER (ORDER BY P.Id) AS 'Row',          1 AS Quantity      FROM          Postulate P      LEFT JOIN          Educational_Level EL ON P.EducationalLevelId = EL.Id";
-            string postulatesSql2 = ")  SELECT      Id,      EducationalLevelName,      ExpectedSalary,      FirstName,      LastName,      CellPhone,      Email,      ColorHex,      Career,      Description,      PhotoUrl,      'Row',      CEILING((Quantity/6)) AS Pages  FROM      Postulates  WHERE EmployeeId IS NULL AND 'Row' BETWEEN ((@PageSize * @Page) - (@PageSize - 1)) AND (@PageSize * @Page)";
+            string postulatesSql2 = ")  SELECT      Id,      EducationalLevelName,      ExpectedSalary,      FirstName,      LastName,      CellPhone,      Email,      ColorHex,      Career,      Description,      PhotoUrl,      'Row',      CEILING((Quantity/6)) AS Pages  FROM      Postulates ";
             string postulatesSqlPages = "SELECT CAST(COUNT(P.Id) AS decimal(10,2)) FROM Postulate P";
 
             postulatesSql1 = this.QueryWhereCriteria(criteria, postulatesSql1, true, false, "PVR.VacantId", true, " LEFT JOIN Postulate_Vacant_Rel PVR ON P.Id = PVR.PostulateId ");
@@ -69,15 +69,16 @@ namespace Api.Repositories
                 throw new Exception();
             }
 
- 
+
         }
 
         public async Task<PostulateDTO> PostulateById(int Id)
         {
             string postulateSql = _postulateQueries.PostulateById;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                var postulateResponse = await connection.QueryAsync<PostulateDTO>(postulateSql, new {
+                var postulateResponse = await connection.QueryAsync<PostulateDTO>(postulateSql, new
+                {
                     Id = Id
                 });
                 return postulateResponse.First();
@@ -87,39 +88,51 @@ namespace Api.Repositories
         public async Task<int> Add(PostulateMergeDTO postulateAdd)
         {
             string addSql = _postulateQueries.Add;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                using(MySqlCommand command = this.createCommandPostulate(addSql, connection, postulateAdd))
+                try
                 {
-                    await connection.OpenAsync();
-                    int postulateId = Convert.ToInt32(await command.ExecuteScalarAsync());
-                    if(postulateAdd.Photo != null) {
-                        string fileName = (postulateAdd.Doc != null) ? postulateAdd.Doc.ToString() : postulateId.ToString();
-                        await this.PhotoUpload(postulateAdd.Photo, fileName);
-                        var postulateResponse = await connection.ExecuteAsync(_postulateQueries.UpdatePhotoUrl, new {
-                            PhotoUrl = fileName,
-                            Id = postulateId
-                        });
+                    using (MySqlCommand command = this.createCommandPostulate(addSql, connection, postulateAdd))
+                    {
+                        await connection.OpenAsync();
+                        int postulateId = Convert.ToInt32(await command.ExecuteScalarAsync());
+                        if (postulateAdd.Photo != null)
+                        {
+                            string fileName = (postulateAdd.Doc != null) ? postulateAdd.Doc.ToString() : postulateId.ToString();
+                            await this.PhotoUpload(postulateAdd.Photo, fileName);
+                            var postulateResponse = await connection.ExecuteAsync(_postulateQueries.UpdatePhotoUrl, new
+                            {
+                                PhotoUrl = fileName,
+                                Id = postulateId
+                            });
+                        }
+                        return postulateId;
                     }
-                    return postulateId;
                 }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
             }
         }
 
         public async Task Edit(PostulateMergeDTO postulateEdit)
         {
             string editSql = _postulateQueries.Edit;
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
-                using(MySqlCommand command = this.createCommandPostulate(editSql, connection, postulateEdit))
+                using (MySqlCommand command = this.createCommandPostulate(editSql, connection, postulateEdit))
                 {
                     command.Parameters.Add(SqlUtils.obtainMySqlParameter("Id", postulateEdit.Id));
                     await connection.OpenAsync();
                     await command.ExecuteNonQueryAsync();
-                    if(postulateEdit.Photo != null) {
+                    if (postulateEdit.Photo != null)
+                    {
                         string fileName = (postulateEdit.Doc != null) ? postulateEdit.Doc.ToString() : postulateEdit.Id.ToString();
                         await this.PhotoUpload(postulateEdit.Photo, fileName);
-                        var postulateResponse = await connection.ExecuteAsync(_postulateQueries.UpdatePhotoUrl, new {
+                        var postulateResponse = await connection.ExecuteAsync(_postulateQueries.UpdatePhotoUrl, new
+                        {
                             PhotoUrl = fileName,
                             Id = postulateEdit.Id
                         });
@@ -130,14 +143,16 @@ namespace Api.Repositories
 
         public async Task ToEmployee(PostulateToEmployeeDTO toEmployee)
         {
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
                 await connection.OpenAsync();
-                await connection.ExecuteAsync(_postulateQueries.UpdateToEmployee, new {
+                await connection.ExecuteAsync(_postulateQueries.UpdateToEmployee, new
+                {
                     Id = toEmployee.Id,
                     EmployeeId = toEmployee.EmployeeId
                 });
-                await connection.ExecuteAsync(_postulateQueries.UpdateToEmployeeRel, new {
+                await connection.ExecuteAsync(_postulateQueries.UpdateToEmployeeRel, new
+                {
                     Id = toEmployee.Id,
                     VacantId = toEmployee.VacantId
                 });
@@ -158,37 +173,43 @@ namespace Api.Repositories
         {
             string aliasPostulate = whitAliasPostulate ? "P." : "";
 
-            if(vacantFilterActive && criteria.VacantId != null && criteria.VacantId > 0)
+            if (vacantFilterActive && criteria.VacantId != null && criteria.VacantId > 0)
             {
-                if(!wherePrint)
+                if (!wherePrint)
                 {
                     queryBase += whereVacantComplement + " WHERE";
                     wherePrint = true;
-                } else {
+                }
+                else
+                {
                     queryBase += " AND";
                 }
                 queryBase += " " + vacantFieldName + " = @VacantId";
             }
 
-            if(criteria.Name != null && criteria.Name != "" && criteria.Name != "null")
+            if (criteria.Name != null && criteria.Name != "" && criteria.Name != "null")
             {
-                if(!wherePrint)
+                if (!wherePrint)
                 {
                     queryBase += " WHERE";
                     wherePrint = true;
-                } else {
+                }
+                else
+                {
                     queryBase += " AND";
                 }
                 queryBase += " " + aliasPostulate + "Name LIKE @Name";
             }
 
-            if(criteria.Doc != null && criteria.Doc != "" && criteria.Doc != "null")
+            if (criteria.Doc != null && criteria.Doc != "" && criteria.Doc != "null")
             {
-                if(!wherePrint)
+                if (!wherePrint)
                 {
                     queryBase += " WHERE";
                     wherePrint = true;
-                } else {
+                }
+                else
+                {
                     queryBase += " AND";
                 }
                 queryBase += " " + aliasPostulate + "Doc LIKE @Doc";
@@ -200,9 +221,9 @@ namespace Api.Repositories
         private PostulateCriteriaDTO prepareCriteriaToQuery(PostulateCriteriaDTO criteria)
         {
             criteria.PageSize = pageSize;
-            if(criteria.Name != null && criteria.Name != "" && criteria.Name != "null")
+            if (criteria.Name != null && criteria.Name != "" && criteria.Name != "null")
                 criteria.Name = "%" + criteria.Name + "%";
-            if(criteria.Doc != null && criteria.Doc != "" && criteria.Doc != "null")
+            if (criteria.Doc != null && criteria.Doc != "" && criteria.Doc != "null")
                 criteria.Doc = "%" + criteria.Doc + "%";
             return criteria;
         }
