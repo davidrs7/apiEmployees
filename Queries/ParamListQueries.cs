@@ -15,8 +15,8 @@ namespace Api.Queries
         public string VacantStatus { get; } = "SELECT VS.Id, VS.Available, VS.Name FROM Vacant_Status VS";
         public string PostulateFindOut { get; } = "SELECT PFO.Id, PFO.Available, PFO.Name FROM Postulate_Findout PFO";
         public string JobSkills { get; } = "SELECT JS.Id, JS.Available, JS.Name FROM Job_Skills JS";
-        public string Department { get; } = "SELECT D.Id, 1 AS Available, D.Name FROM Department D";
-        public string Job { get; } = "SELECT J.Id, 1 AS Available, J.Name FROM Job J";
+        public string Department { get; } = "SELECT D.RolID Id, 1 AS Available, D.Nombre Name FROM roles D";
+        public string Job { get; } = "SELECT J.CargoID Id, 1 AS Available, J.Nombre Name FROM cargos J";
         public string AbsenceType { get; } = "SELECT AT.Id, AT.Available, AT.Name FROM Absence_Type AT";
     }
 }
