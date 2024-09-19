@@ -27,25 +27,33 @@ namespace Api.Repositories
 
         public async Task<IEnumerable<AbsenceUserDTO>> Users(int userId)
         {
-            string userSql = _absenceQueries.UserById;
-            string usersSql = _absenceQueries.Users;
+            try {
+                string userSql = _absenceQueries.UserById;
+                string usersSql = _absenceQueries.Users;
 
-            using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
-            {
-                await connection.OpenAsync();
-                var userResponse = await connection.QueryAsync<AbsenceUserDTO>(userSql, new { Id = userId });
+                using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+                {
+                    await connection.OpenAsync();
+                    var userResponse = await connection.QueryAsync<AbsenceUserDTO>(userSql, new { Id = userId });
 
-                if(userResponse.Count() > 0) {
-                    var user = userResponse.First();
-                    var usersResponse = await connection.QueryAsync<AbsenceUserDTO>(usersSql, new { Id = user.JobId });
-                    var users = usersResponse.ToList();
-                    users.Add(user);
-                    users.Reverse();
-                    return users;
+                    if (userResponse.Count() > 0)
+                    {
+                        var user = userResponse.First();
+                        var usersResponse = await connection.QueryAsync<AbsenceUserDTO>(usersSql, new { Id = user.JobId });
+                        var users = usersResponse.ToList();
+                        users.Add(user);
+                        users.Reverse();
+                        return users;
+                    }
+
+                    return userResponse.ToList();
                 }
-
-                return userResponse.ToList();
             }
+            catch (Exception ex)
+            {
+                throw ex; 
+            }
+
         }
 
         public async Task<AbsenceUserDTO> User(int employeeId)
