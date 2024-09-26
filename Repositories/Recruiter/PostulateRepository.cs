@@ -5,7 +5,7 @@ using Api.Interfaces;
 using Api.Queries;
 using Api.Utils;
 using Dapper;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Api.Repositories
 {
@@ -34,17 +34,15 @@ namespace Api.Repositories
 
         public async Task<IEnumerable<PostulateBasicDTO>> Postulates(PostulateCriteriaDTO criteria)
         {
-            string postulatesSql1 = "WITH Postulates AS (     SELECT          P.Id,          P.EmployeeId,          EL.Name AS EducationalLevelName,          P.ExpectedSalary,          P.FirstName,          P.LastName,          P.CellPhone,          P.Email,          '#076AE2' AS ColorHex,          P.Career,          P.Description,          IF(P.PhotoUrl IS NULL, NULL, CONCAT('https://hrprueba.s3.us-east-2.amazonaws.com/', P.PhotoUrl)) AS PhotoUrl,          ROW_NUMBER() OVER (ORDER BY P.Id) AS 'Row',          1 AS Quantity      FROM          Postulate P      LEFT JOIN          Educational_Level EL ON P.EducationalLevelId = EL.Id";
+            string postulatesSql1 = "WITH Postulates AS (     SELECT          P.Id,          P.EmployeeId,          EL.Name AS EducationalLevelName,          P.ExpectedSalary,          P.FirstName,          P.LastName,          P.CellPhone,          P.Email,          '#076AE2' AS ColorHex,          P.Career,          P.Description,          IF(P.PhotoUrl IS NULL, NULL, CONCAT('https://hrprueba.s3.us-east-2.amazonaws.com/', P.PhotoUrl)) AS PhotoUrl,          ROW_NUMBER() OVER (ORDER BY P.Id) AS 'Row',          1 AS Quantity      FROM          postulate P      LEFT JOIN          educational_level EL ON P.EducationalLevelId = EL.Id";
             string postulatesSql2 = ")  SELECT      Id,      EducationalLevelName,      ExpectedSalary,      FirstName,      LastName,      CellPhone,      Email,      ColorHex,      Career,      Description,      PhotoUrl,      'Row',      CEILING((Quantity/6)) AS Pages  FROM      Postulates ";
-            string postulatesSqlPages = "SELECT CAST(COUNT(P.Id) AS decimal(10,2)) FROM Postulate P";
+            string postulatesSqlPages = "SELECT CAST(COUNT(P.Id) AS decimal(10,2)) FROM postulate P";
 
-            postulatesSql1 = this.QueryWhereCriteria(criteria, postulatesSql1, true, false, "PVR.VacantId", true, " LEFT JOIN Postulate_Vacant_Rel PVR ON P.Id = PVR.PostulateId ");
+            postulatesSql1 = this.QueryWhereCriteria(criteria, postulatesSql1, true, false, "PVR.VacantId", true, " LEFT JOIN postulate_vacant_rel PVR ON P.Id = PVR.PostulateId ");
             postulatesSql2 = this.QueryWhereCriteria(criteria, postulatesSql2);
-            postulatesSqlPages = this.QueryWhereCriteria(criteria, postulatesSqlPages, true, false, "PVR.VacantId", true, " LEFT JOIN Postulate_Vacant_Rel PVR ON P.Id = PVR.PostulateId ");
+            postulatesSqlPages = this.QueryWhereCriteria(criteria, postulatesSqlPages, true, false, "PVR.VacantId", true, " LEFT JOIN postulate_vacant_rel PVR ON P.Id = PVR.PostulateId ");
 
-
-            try
-            {
+             
                 using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
                 {
                     using (MySqlCommand command = new MySqlCommand(postulatesSqlPages, connection))
@@ -63,11 +61,7 @@ namespace Api.Repositories
                         return postulatesResponse.ToList();
                     }
                 }
-            }
-            catch (Exception Ex)
-            {
-                throw new Exception();
-            }
+           
 
 
         }
@@ -89,9 +83,7 @@ namespace Api.Repositories
         {
             string addSql = _postulateQueries.Add;
             using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
-            {
-                try
-                {
+            { 
                     using (MySqlCommand command = this.createCommandPostulate(addSql, connection, postulateAdd))
                     {
                         await connection.OpenAsync();
@@ -108,11 +100,7 @@ namespace Api.Repositories
                         }
                         return postulateId;
                     }
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                
 
             }
         }

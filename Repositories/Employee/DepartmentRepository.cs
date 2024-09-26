@@ -3,7 +3,7 @@ using Api.DTO.Department;
 using Api.Interfaces;
 using Api.Queries;
 using Dapper;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Api.Repositories
 {
@@ -67,22 +67,14 @@ namespace Api.Repositories
         }
 
         public async Task<IEnumerable<DepartmentDTO>> Departments()
-        {
-            try
-            {
+        { 
                 string departmentsSql = _departmentQueries.DepartmentsIntegracion;
                 using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
                 {
                     await connection.OpenAsync();
                     var departmentsResponse = await connection.QueryAsync<DepartmentDTO>(departmentsSql);
                     return departmentsResponse.ToList();
-                }
-            }
-            catch (Exception  ex)
-            { 
-                Console.WriteLine(ex.Message); 
-                return new List<DepartmentDTO>();
-            }
+                } 
         }
 
         public async Task<DepartmentDTO> DepartmentById(int departmentId)

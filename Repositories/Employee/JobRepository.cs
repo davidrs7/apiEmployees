@@ -3,7 +3,7 @@ using Api.DTO.Job;
 using Api.Interfaces;
 using Api.Queries;
 using Dapper;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Api.Repositories
 {
@@ -19,7 +19,7 @@ namespace Api.Repositories
 
         public async Task<int> Add(JobDTO jobAdd)
         {
-            string addJobSql1 = "INSERT INTO Job (Name, DepartmentId, Profile, Functions";
+            string addJobSql1 = "INSERT INTO job (Name, DepartmentId, Profile, Functions";
             string addJobSql2 = " VALUES (@Name, @DepartmentId, @Profile, @Functions";
 
             if(jobAdd.ApproveId != 0) {
@@ -58,7 +58,7 @@ namespace Api.Repositories
 
         public async Task Edit(JobDTO jobEdit)
         {
-            string editJobSql = "UPDATE Job SET Name = @Name, DepartmentId = @DepartmentId, Profile = @Profile, Functions = @Functions";
+            string editJobSql = "UPDATE job SET Name = @Name, DepartmentId = @DepartmentId, Profile = @Profile, Functions = @Functions";
             editJobSql += (jobEdit.ApproveId != 0) ? ", ApproveId = @ApproveId" : ", ApproveId = NULL";
             editJobSql += (jobEdit.ReportId != 0) ? ", ReportId = @ReportId" : ", ReportId = NULL";
             editJobSql += " WHERE Id = @Id";
@@ -85,9 +85,7 @@ namespace Api.Repositories
         }
 
         public async Task<IEnumerable<JobBasicDTO>> Jobs()
-        {
-            try
-            {
+        { 
                 string jobSql = _jobQueries.JobsIntegracion;
 
                 using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
@@ -97,11 +95,7 @@ namespace Api.Repositories
                     return jobResponse.ToList();
                 }
             
-            
-            }
-            catch  (Exception Ex) { 
-            
-            throw new Exception();}
+             
         
         }
       

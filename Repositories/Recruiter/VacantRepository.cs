@@ -9,7 +9,7 @@ using Api.Interfaces;
 using Api.Queries;
 using Api.Utils;
 using Dapper;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Api.Repositories
 {
@@ -26,9 +26,7 @@ namespace Api.Repositories
         }
 
         public async Task<IEnumerable<VacantDTO>> Vacants()
-        {
-            try
-            {
+        {   
                 string vacantsSql = _vacantQueries.Vacants;
                 var _connect_db = new MySqlConnection(_configuration.GetConnectionString("Db"));
                 using (var connection = _connect_db)
@@ -37,10 +35,7 @@ namespace Api.Repositories
                     var vacantsResponse = await connection.QueryAsync<VacantDTO>(vacantsSql);
                     return vacantsResponse.ToList();
                 }
-            }
-            catch (Exception ex) {
-                throw ex;
-            }
+            
         }
 
         public async Task<VacantDTO> VacantById(int Id)

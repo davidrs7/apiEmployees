@@ -4,7 +4,7 @@ using Amazon.S3.Transfer;
 using Api.DTO.Absence;
 using Api.DTO.Employee;
 using Api.Utils;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Api.Base
 {

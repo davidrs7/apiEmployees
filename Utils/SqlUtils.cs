@@ -1,6 +1,6 @@
 using System.Data;
-using System.Data.SqlClient;
-using MySql.Data.MySqlClient;
+using System.Data.SqlClient; 
+using MySqlConnector;
 
 namespace Api.Utils
 {
@@ -11,13 +11,7 @@ namespace Api.Utils
         {
             return (value != null && value.ToString() != "") ? value : DBNull.Value;
         }
-
-        public static SqlParameter obtainSqlParameter(string paramName, DateTime? value)
-        {
-            SqlParameter param = new SqlParameter(paramName, SqlDbType.DateTime);
-            param.Value = obtainValue(value);
-            return param;
-        }
+         
 
         /* 
          Autor: David Rodriguez 
@@ -31,12 +25,7 @@ namespace Api.Utils
             return param;
         }
 
-        public static SqlParameter obtainSqlParameter(string paramName, string? value)
-        {
-            SqlParameter param = new SqlParameter(paramName, SqlDbType.NVarChar);
-            param.Value = obtainValue(value);
-            return param;
-        }
+      
         /* 
         Autor: David Rodriguez 
         Fecha: Jun 2024
@@ -49,13 +38,7 @@ namespace Api.Utils
             return param;
         }
 
-        public static SqlParameter obtainSqlParameter(string paramName, int? value)
-        {
-            SqlParameter param = new SqlParameter(paramName, SqlDbType.Int);
-            param.Value = obtainValue(value);
-            return param;
-        }
-
+    
         /* 
         Autor: David Rodriguez 
         Fecha: Jun 2024
@@ -69,13 +52,7 @@ namespace Api.Utils
         }
 
 
-
-        public static SqlParameter obtainSqlParameter(string paramName, double? value)
-        {
-            SqlParameter param = new SqlParameter(paramName, SqlDbType.Money);
-            param.Value = obtainValue(value);
-            return param;
-        }
+         
         /* 
         Autor: David Rodriguez 
         Fecha: Jun 2024
@@ -88,12 +65,7 @@ namespace Api.Utils
             return param;
         }
 
-        public static SqlParameter obtainSqlParameter(string paramName, bool? value)
-        {
-            SqlParameter param = new SqlParameter(paramName, SqlDbType.Bit);
-            param.Value = obtainValue(value);
-            return param;
-        }
+      
         /* 
          Autor: David Rodriguez 
          Fecha: Jun 2024

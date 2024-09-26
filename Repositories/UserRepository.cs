@@ -4,7 +4,7 @@ using Api.Interfaces;
 using Api.Queries;
 using Dapper;
 using MySql;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Api.Repositories
 {
@@ -75,8 +75,7 @@ namespace Api.Repositories
         {
             string sessionSql = _userQueries.SessionByToken;
             using(var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
-            {
-                try {
+            { 
                     await connection.OpenAsync();
                     var sessionResponse = await connection.QueryAsync<SessionDTO>(sessionSql, new
                     {
@@ -102,11 +101,7 @@ namespace Api.Repositories
                         }
                     }
                     return null;
-                }
-                catch (Exception Ex)
-                {
-                    throw new Exception();
-                }
+                 
                 
             }
         }
@@ -116,9 +111,7 @@ namespace Api.Repositories
         {
             string sessionSql = _userQueries.userByIdOpcional;
             using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
-            {
-                try
-                {
+            { 
                     await connection.OpenAsync();    
                             string userSql = _userQueries.userByIdOpcional;
                             var userResponse = await connection.QueryAsync<UserDTO>(userSql, new
@@ -127,11 +120,7 @@ namespace Api.Repositories
                             });
                             return userResponse.First();  
                     return null;
-                }
-                catch (Exception Ex)
-                {
-                    throw new Exception();
-                }
+ 
 
             }
         }

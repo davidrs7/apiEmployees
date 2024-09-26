@@ -5,8 +5,8 @@ using Api.Base;
 using Api.Interfaces;
 using Api.Queries;
 using Api.Utils;
-using Dapper; 
-using MySql.Data.MySqlClient;
+using Dapper;  
+using MySqlConnector;
 
 namespace Api.Repositories
 {
@@ -26,8 +26,7 @@ namespace Api.Repositories
         }
 
         public async Task<IEnumerable<AbsenceUserDTO>> Users(int userId)
-        {
-            try {
+        { 
                 string userSql = _absenceQueries.UserById;
                 string usersSql = _absenceQueries.Users;
 
@@ -48,11 +47,7 @@ namespace Api.Repositories
 
                     return userResponse.ToList();
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex; 
-            }
+            
 
         }
 

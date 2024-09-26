@@ -4,7 +4,7 @@ using Api.DTO.ParamList;
 using Api.Interfaces;
 using Api.Queries;
 using Dapper;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Api.Repositories
 {
@@ -20,8 +20,7 @@ namespace Api.Repositories
 
         public async Task<IEnumerable<ParamListDTO>> DocTypeParams()
         {
-            try
-            {
+            
                 string paramSql = _paramListQueries.DocType;
                 using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
                 {
@@ -29,32 +28,21 @@ namespace Api.Repositories
                     var paramResponse = await connection.QueryAsync<ParamListDTO>(paramSql);
                     return paramResponse.ToList();
                 }
-            }
-            catch (Exception Ex)
-            {
-
-                throw new Exception();
-            }
+            
 
         }
 
         public async Task<IEnumerable<ParamListDTO>> CityParams()
         {
             string paramSql = _paramListQueries.City;
-            try
-            {
+            
                 using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
                 {
                     await connection.OpenAsync();
                     var paramResponse = await connection.QueryAsync<ParamListDTO>(paramSql);
                     return paramResponse.ToList();
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine();
-                throw new Exception();
-            }
+             
 
         }
 

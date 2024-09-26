@@ -4,7 +4,7 @@ using Api.Interfaces;
 using Api.Queries;
 using Api.Utils;
 using Dapper;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace Api.Repositories
 {
