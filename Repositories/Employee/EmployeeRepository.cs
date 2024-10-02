@@ -269,16 +269,28 @@ namespace Api.Repositories
 
         public async Task EditGeneral(EmployeeGeneralDTO employeeGeneralEdit)
         {
-            string editSql = _employeeQueries.EditGeneral;
-            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+
+            EmployeeGeneralDTO employeeGeneral = await EmployeeGeneral(employeeGeneralEdit.EmployeeId);
+
+            if (employeeGeneral.Id == 0)
             {
-                using (MySqlCommand command = this.createCommandEmployeeGeneral(editSql, connection, employeeGeneralEdit))
+               await AddGeneral(employeeGeneralEdit);
+            }
+            else
+            {
+                string editSql = _employeeQueries.EditGeneral;
+                using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
                 {
-                    command.Parameters.Add(SqlUtils.obtainMySqlParameter("Id", employeeGeneralEdit.Id));
-                    await connection.OpenAsync();
-                    await command.ExecuteNonQueryAsync();
+                    using (MySqlCommand command = this.createCommandEmployeeGeneral(editSql, connection, employeeGeneralEdit))
+                    {
+                        command.Parameters.Add(SqlUtils.obtainMySqlParameter("Id", employeeGeneralEdit.Id));
+                        await connection.OpenAsync();
+                        await command.ExecuteNonQueryAsync();
+                    }
                 }
             }
+
+
         }
 
         public async Task EditAcademic(EmployeeAcademicDTO employeeAcademicEdit)
@@ -375,6 +387,7 @@ namespace Api.Repositories
 
         public async Task<EmployeeGeneralDTO> EmployeeGeneral(int employeeId)
         {
+
             string employeeSql = _employeeQueries.EmployeeGeneral;
             using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
             {
@@ -382,7 +395,8 @@ namespace Api.Repositories
                 {
                     EmployeeId = employeeId
                 });
-                return employeeResponse.First();
+
+                return employeeResponse.Count() > 0 ? employeeResponse.First(): new EmployeeGeneralDTO();
             }
         }
 
