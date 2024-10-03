@@ -92,7 +92,7 @@ namespace Api.Repositories
                             E.CellPhone, 
                             E.Email, 
                             IF(E.PhotoUrl IS NULL, NULL, CONCAT('https://hrprueba.s3.us-east-2.amazonaws.com/', E.PhotoUrl)) AS PhotoUrl, 
-                            E.Id AS paginado, 
+                            ROW_NUMBER() OVER (ORDER BY E.Id)  AS paginado,
                             @Pages AS Quantity 
                         FROM  
                             usuarios U
@@ -295,14 +295,24 @@ namespace Api.Repositories
 
         public async Task EditAcademic(EmployeeAcademicDTO employeeAcademicEdit)
         {
-            string editSql = _employeeQueries.EditAcademic;
-            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+
+            EmployeeAcademicDTO employeeAcademic = await EmployeeAcademic(employeeAcademicEdit.EmployeeId);
+
+            if (employeeAcademic.Id == 0)
             {
-                using (MySqlCommand command = this.createCommandEmployeeAcademic(editSql, connection, employeeAcademicEdit))
+                await AddAcademic(employeeAcademicEdit);
+            }
+            else
+            {
+                string editSql = _employeeQueries.EditAcademic;
+                using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
                 {
-                    command.Parameters.Add(SqlUtils.obtainMySqlParameter("Id", employeeAcademicEdit.Id));
-                    await connection.OpenAsync();
-                    await command.ExecuteNonQueryAsync();
+                    using (MySqlCommand command = this.createCommandEmployeeAcademic(editSql, connection, employeeAcademicEdit))
+                    {
+                        command.Parameters.Add(SqlUtils.obtainMySqlParameter("Id", employeeAcademicEdit.Id));
+                        await connection.OpenAsync();
+                        await command.ExecuteNonQueryAsync();
+                    }
                 }
             }
         }
@@ -409,7 +419,7 @@ namespace Api.Repositories
                 {
                     EmployeeId = employeeId
                 });
-                return employeeResponse.First();
+                return employeeResponse.Count() > 0 ?  employeeResponse.First(): new EmployeeAcademicDTO();
             }
         }
 
