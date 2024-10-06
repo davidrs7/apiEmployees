@@ -25,7 +25,7 @@ builder.Services.AddScoped<IAbsenceRepository, AbsenceRepository>();
 var app = builder.Build();
 
 // Configuración de URLs
-app.Urls.Add("http://0.0.0.0:5000");
+app.Urls.Add("http://0.0.0.0:7242");
 
 // Orden de middleware
 app.UseCors(x => x.AllowAnyHeader()
