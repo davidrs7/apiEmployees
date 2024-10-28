@@ -24,6 +24,7 @@ namespace Api.Interfaces
         Task<int> Add(EmployeeMergeDTO employeeAdd);
         Task<int> AddGeneral(EmployeeGeneralDTO employeeGeneralAdd);
         Task<int> AddAcademic(EmployeeAcademicDTO employeeAcademicAdd);
+        Task<bool> DeleteAcademic(int id);
         Task<int> AddFile(EmployeeFileMergeDTO employeeFileAdd);
         Task Edit(EmployeeMergeDTO employeeEdit);
         Task EditGeneral(EmployeeGeneralDTO employeeGeneralEdit);

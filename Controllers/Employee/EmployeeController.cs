@@ -56,6 +56,13 @@ namespace Api.Controllers
             return Ok(await _employeeRepository.AddAcademic(employeeAdd));
         }
 
+
+        [HttpDelete("Delete/Academic/{id}")]
+        public async Task<ActionResult<bool>> AddAcademic(int id)
+        {
+            return Ok(await _employeeRepository.DeleteAcademic(id));
+        }
+
         [HttpPost("Add/File")]
         public async Task<ActionResult<int>> AddFile([FromForm] EmployeeFileMergeDTO employeeAdd)
         {

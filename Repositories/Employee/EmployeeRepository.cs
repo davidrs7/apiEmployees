@@ -202,6 +202,7 @@ namespace Api.Repositories
             }
         }
 
+
         public async Task<int> AddAcademic(EmployeeAcademicDTO employeeAcademicAdd)
         {
             string addSql = _employeeQueries.AddAcademic;
@@ -218,6 +219,16 @@ namespace Api.Repositories
                     });
                     return employeeAcademicId;
                 }
+            }
+        }
+
+        public async Task<bool> DeleteAcademic(int id)
+        { 
+            using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
+            {
+                await connection.OpenAsync();
+                await connection.ExecuteAsync("DELETE FROM employee_academic WHERE Id =" + id);
+                return true;
             }
         }
 
@@ -295,27 +306,17 @@ namespace Api.Repositories
         }
 
         public async Task EditAcademic(EmployeeAcademicDTO employeeAcademicEdit)
-        {
-
-            List<EmployeeAcademicDTO> employeeAcademic = await EmployeeAcademic(employeeAcademicEdit.EmployeeId);
-
-            if (employeeAcademic[0].Id == 0)
-            {
-                await AddAcademic(employeeAcademicEdit);
-            }
-            else
-            {
+        { 
                 string editSql = _employeeQueries.EditAcademic;
                 using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
                 {
                     using (MySqlCommand command = this.createCommandEmployeeAcademic(editSql, connection, employeeAcademicEdit))
-                    {
-                        command.Parameters.Add(SqlUtils.obtainMySqlParameter("Id", employeeAcademicEdit.Id));
+                    { 
                         await connection.OpenAsync();
                         await command.ExecuteNonQueryAsync();
                     }
                 }
-            }
+            
         }
 
         public async Task MergeKnowledge(EmployeeKnowledgeDTO merge)
@@ -590,6 +591,7 @@ namespace Api.Repositories
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("Career", employeeAcademic.Career));
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("EmployeeId", employeeAcademic.EmployeeId));
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("academicEndDate", employeeAcademic.academicEndDate));
+            command.Parameters.Add(SqlUtils.obtainMySqlParameter("Id", employeeAcademic.Id));
             return command;
         }
 
