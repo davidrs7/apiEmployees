@@ -297,9 +297,9 @@ namespace Api.Repositories
         public async Task EditAcademic(EmployeeAcademicDTO employeeAcademicEdit)
         {
 
-            EmployeeAcademicDTO employeeAcademic = await EmployeeAcademic(employeeAcademicEdit.EmployeeId);
+            List<EmployeeAcademicDTO> employeeAcademic = await EmployeeAcademic(employeeAcademicEdit.EmployeeId);
 
-            if (employeeAcademic.Id == 0)
+            if (employeeAcademic[0].Id == 0)
             {
                 await AddAcademic(employeeAcademicEdit);
             }
@@ -411,7 +411,7 @@ namespace Api.Repositories
             }
         }
 
-        public async Task<EmployeeAcademicDTO> EmployeeAcademic(int employeeId)
+        public async Task<List<EmployeeAcademicDTO>> EmployeeAcademic(int employeeId)
         {
             string employeeSql = _employeeQueries.EmployeeAcademic;
             using (var connection = new MySqlConnection(_configuration.GetConnectionString("Db")))
@@ -420,7 +420,7 @@ namespace Api.Repositories
                 {
                     EmployeeId = employeeId
                 });
-                return employeeResponse.Count() > 0 ? employeeResponse.First() : new EmployeeAcademicDTO();
+                return employeeResponse.Count() > 0 ? employeeResponse.ToList() : new List<EmployeeAcademicDTO>();
             }
         }
 
@@ -588,6 +588,8 @@ namespace Api.Repositories
             MySqlCommand command = new MySqlCommand(sql, connection);
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("EducationalLevelId", employeeAcademic.EducationalLevelId));
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("Career", employeeAcademic.Career));
+            command.Parameters.Add(SqlUtils.obtainMySqlParameter("EmployeeId", employeeAcademic.EmployeeId));
+            command.Parameters.Add(SqlUtils.obtainMySqlParameter("academicEndDate", employeeAcademic.academicEndDate));
             return command;
         }
 

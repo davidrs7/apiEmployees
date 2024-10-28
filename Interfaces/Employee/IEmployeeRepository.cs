@@ -19,7 +19,7 @@ namespace Api.Interfaces
         Task<IEnumerable<EmployeeFileDTO>> Files(int employeeId);
         Task<EmployeeDTO> Employee(int employeeId);
         Task<EmployeeGeneralDTO> EmployeeGeneral(int employeeId);
-        Task<EmployeeAcademicDTO> EmployeeAcademic(int employeeId);
+        Task<List<EmployeeAcademicDTO>> EmployeeAcademic(int employeeId);
         Task<IEnumerable<EmployeeFileTypeDTO>> EmployeeFileTypes();
         Task<int> Add(EmployeeMergeDTO employeeAdd);
         Task<int> AddGeneral(EmployeeGeneralDTO employeeGeneralAdd);

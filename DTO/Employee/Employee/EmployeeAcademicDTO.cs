@@ -7,5 +7,7 @@ namespace Api.DTO.Employee
         public int? EducationalLevelId { get; set; }
         public string? EducationalLevelName { get; set; } = String.Empty;
         public string? Career { get; set; } = String.Empty;
+
+        public DateTime academicEndDate { get; set; }
     }
 }
