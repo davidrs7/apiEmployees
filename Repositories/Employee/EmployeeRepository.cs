@@ -83,7 +83,7 @@ namespace Api.Repositories
                         CEILING((Quantity/@PageSize)) AS Pages 
                     FROM (
                         SELECT 
-                            E.Id, 
+                            U.UsuarioID AS Id, 
                             D.RolID AS DepartmentId, 
                             D.Nombre AS DepartmentName, 
                             J.Nombre AS JobName,
