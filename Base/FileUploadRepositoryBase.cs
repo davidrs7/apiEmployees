@@ -84,7 +84,7 @@ namespace Api.Base
         {
             string access = _configuration.GetSection("AWS:access").Value;  
             string secret = _configuration.GetSection("AWS:pwaws").Value;  
-            return new AmazonS3Client(access, secret, Amazon.RegionEndpoint.USEast1);
+            return new AmazonS3Client(access, secret, Amazon.RegionEndpoint.USEast2);
         }
 
         private string CreateUrlFile(string department, string city, string name, string level1, string? level2, string? level3)
