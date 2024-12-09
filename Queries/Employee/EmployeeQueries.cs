@@ -27,7 +27,7 @@ namespace Api.Queries
         public string EmployeeSons { get; } = "SELECT s.Id,  s.EmployeeGeneralId,  DATE(s.SonBornDate) AS SonBornDate,  s.SonName,   TIMESTAMPDIFF(YEAR, s.SonBornDate, CURDATE()) AS Age FROM   employee_sons s WHERE  s.EmployeeGeneralId =@EmployeeId";
         public string EmployeeKnowledge { get; } = "SELECT EK.EmployeeId, K.Id AS KnowledgeId, K.Name AS KnowledgeName, EK.Active, EK.Rate FROM knowledge K LEFT JOIN employee_knowledges EK ON EK.KnowledgeId = K.Id WHERE EK.EmployeeId = @EmployeeId";
         public string EmployeeFileTypes { get; } = "SELECT FT.Id, FT.LevelId, FT.Name FROM employee_file_type FT ORDER BY FT.LevelId";
-        public string EmployeeFile { get; } = "SELECT F.Id, F.EmployeeId, F.Department, F.Name, F.City, F.Level1, F.Level2, F.Level3, CONCAT('https://hrprueba.s3.us-east-2.amazonaws.com/', F.Url) AS Url, F.FileName FROM employee_file F WHERE EmployeeId = @EmployeeId";
+        public string EmployeeFile { get; } = "SELECT F.Id, F.EmployeeId, F.Department, F.Name, F.City, F.Level1, F.Level2, F.Level3, CONCAT('https://hrprueba.s3.us-east-2.amazonaws.com/', F.Url) AS Url, F.FileName  FROM employee_file F inner join usuarios u on u.UsuarioIdOpcional = F.EmployeeId  WHERE u.UsuarioID = @EmployeeId";
         public string EmployeeAddSon { get; } = "insert into employee_sons (EmployeeGeneralId, SonBornDate,SonName) values (@employeeGeneralId, @sonBornDate, @sonName)";
         public string EmployeeUpdateSon { get; } = "update employee_sons set EmployeeGeneralId=@EmployeeGeneralId, SonBornDate=@sonBornDate,SonName=@sonName where Id=@id";
         public string EmployeeDelSon { get; } = "delete from employee_sons where id=@id";

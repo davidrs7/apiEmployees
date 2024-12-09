@@ -34,9 +34,9 @@ namespace Api.Repositories
 
         public async Task<IEnumerable<PostulateBasicDTO>> Postulates(PostulateCriteriaDTO criteria)
         {
-            string postulatesSql1 = "WITH Postulates AS (     SELECT          P.Id,          P.EmployeeId,          EL.Name AS EducationalLevelName,          P.ExpectedSalary,          P.FirstName,          P.LastName,          P.CellPhone,          P.Email,          '#076AE2' AS ColorHex,          P.Career,          P.Description,          IF(P.PhotoUrl IS NULL, NULL, CONCAT('https://hrprueba.s3.us-east-2.amazonaws.com/', P.PhotoUrl)) AS PhotoUrl,          ROW_NUMBER() OVER (ORDER BY P.Id) AS 'Row',          1 AS Quantity      FROM          postulate P      LEFT JOIN          educational_level EL ON P.EducationalLevelId = EL.Id";
-            string postulatesSql2 = ")  SELECT      Id,      EducationalLevelName,      ExpectedSalary,      FirstName,      LastName,      CellPhone,      Email,      ColorHex,      Career,      Description,      PhotoUrl,      'Row',      CEILING((Quantity/6)) AS Pages  FROM      Postulates ";
-            string postulatesSqlPages = "SELECT CAST(COUNT(P.Id) AS decimal(10,2)) FROM postulate P";
+            string postulatesSql1 = "WITH Postulates AS (SELECT P.Id, P.EmployeeId, EL.Name AS EducationalLevelName, P.ExpectedSalary, P.FirstName, P.LastName, P.CellPhone, P.Email, '#076AE2' AS ColorHex, P.Career, P.Description, IF(P.PhotoUrl IS NULL, NULL, CONCAT('https://hrprueba.s3.us-east-2.amazonaws.com/', P.PhotoUrl)) AS PhotoUrl, ROW_NUMBER() OVER (ORDER BY P.Id) AS filas, @Pages AS Quantity FROM postulate P LEFT JOIN educational_level EL ON P.EducationalLevelId = EL.Id";
+            string postulatesSql2 = ") SELECT Id, EducationalLevelName, ExpectedSalary, FirstName, LastName, CellPhone, Email, ColorHex, Career, Description, PhotoUrl, filas, CEILING((Quantity/@PageSize)) AS Pages FROM Postulates WHERE  filas BETWEEN ((@PageSize * @Page) - (@PageSize - 1)) AND (@PageSize * @Page)";
+            string postulatesSqlPages = "SELECT CAST(COUNT(P.Id) AS decimal(10,2)) FROM postulate P"; 
 
             postulatesSql1 = this.QueryWhereCriteria(criteria, postulatesSql1, true, false, "PVR.VacantId", true, " LEFT JOIN postulate_vacant_rel PVR ON P.Id = PVR.PostulateId ");
             postulatesSql2 = this.QueryWhereCriteria(criteria, postulatesSql2);
