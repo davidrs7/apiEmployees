@@ -3,8 +3,8 @@ using Api.DTO.Survey;
 using Api.Interfaces;
 using Api.Queries;
 using Api.Utils;
-using Dapper;
-using MySql.Data.MySqlClient;
+using Dapper; 
+using MySqlConnector;
 
 namespace Api.Repositories
 {
@@ -334,12 +334,19 @@ namespace Api.Repositories
 
         private MySqlCommand createCommandSurvey(string sql, MySqlConnection connection, SurveyHeaderDTO surveyMerge)
         {
+            try { 
             MySqlCommand command = new MySqlCommand(sql, connection);
-            command.Parameters.Add(SqlUtils.obtainMySqlParameter("SurveyId", surveyMerge.SurveyId));
+            command.Parameters.Add(SqlUtils.obtainMySqlParameter("SurveyId", surveyMerge.SurveyId)); // aqui está fallando
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("Started", surveyMerge.Started));
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("Finished", surveyMerge.Finished));
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("Title", surveyMerge.Title));
             return command;
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
     }
 }

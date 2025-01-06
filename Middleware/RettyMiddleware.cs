@@ -4,11 +4,10 @@
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
-    using MySql.Data.MySqlClient;
     using System;
-    using System.Data.SqlClient; // Asegúrate de importar el espacio de nombres necesario
     using System.Net;
     using System.Threading.Tasks;
+    using MySqlConnector;
 
     public class RetryMiddleware
     {

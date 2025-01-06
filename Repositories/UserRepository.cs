@@ -2,8 +2,7 @@ using System.Data.SqlClient;
 using Api.DTO.User;
 using Api.Interfaces;
 using Api.Queries;
-using Dapper;
-using MySql;
+using Dapper; 
 using MySqlConnector;
 
 namespace Api.Repositories
