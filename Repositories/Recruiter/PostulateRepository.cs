@@ -91,7 +91,7 @@ namespace Api.Repositories
                         if (postulateAdd.Photo != null)
                         {
                             string fileName = (postulateAdd.Doc != null) ? postulateAdd.Doc.ToString() : postulateId.ToString();
-                            await this.PhotoUpload(postulateAdd.Photo, fileName);
+                            await this.PhotoUpload(postulateAdd.Photo,"postulantes/" + fileName,".pdf");
                             var postulateResponse = await connection.ExecuteAsync(_postulateQueries.UpdatePhotoUrl, new
                             {
                                 PhotoUrl = fileName,
@@ -236,6 +236,7 @@ namespace Api.Repositories
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("Email", postulate.Email));
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("Career", postulate.Career));
             command.Parameters.Add(SqlUtils.obtainMySqlParameter("Description", postulate.Description));
+            command.Parameters.Add(SqlUtils.obtainMySqlParameter("CityLevelId", postulate.CityLevelId));
             return command;
         }
     }

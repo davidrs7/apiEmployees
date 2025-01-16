@@ -9,6 +9,7 @@
         public int? DocTypeId { get; set; }
         public string? DocTypeName { get; set; } = String.Empty;
         public int? EducationalLevelId { get; set; }
+        public int CityLevelId { get; set; }
         public string? EducationalLevelName { get; set; } = String.Empty;
         public double? OfferedSalary { get; set; }
         public double? ExpectedSalary { get; set; }
